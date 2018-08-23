@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="leipi.org">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css" media="all">
+    <script src="../lib/layui/layui.js"></script>
+    <style type="text/css">
+        .btnBox {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            padding: 9px 0px;
+            width: 60px;
+            text-align: center;
+        }
+
+        .layui-input-block {
+            margin-left: 60px !important;
+        }
+
+        div[data-name="dragBox"] {
+            min-height: 40px;
+        }
+
+        .itemChecked>label{
+            /* border: 1px solid #ccc; */
+            background-color:#11f78461;
+        }
+
+        #setFormData .layui-card-body {
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md2">
+                <div class="grid-demo">
+                    <fieldset class="layui-elem-field">
+                        <legend>元素选择</legend>
+                        <div class="layui-field-box">
+                            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">表单元素</li>
+                                    <li>表单模板</li>
+                                </ul>
+                                <div class="layui-tab-content removeForm" data-name="delet">
+                                    <div class="layui-tab-item layui-show">
+                                        <div class="btnBox">
+                                            <button class="layui-btn layui-btn-primary" draggable="true" data-type="input">输入框</button>
+                                        </div>
+                                        <div class="btnBox">
+                                            <button class="layui-btn layui-btn-primary" draggable="true" data-type="select">下拉框</button>
+                                        </div>
+                                        <div class="btnBox">
+                                            <button class="layui-btn layui-btn-primary" draggable="true" data-type="checkbox">复选框</button>
+                                        </div>
+                                        <div class="btnBox">
+                                            <button class="layui-btn layui-btn-primary" draggable="true" data-type="radio">单选框</button>
+                                        </div>
+                                        <div class="btnBox">
+                                            <button class="layui-btn layui-btn-primary" draggable="true" data-type="textarea">文本框</button>
+                                        </div>
+                                        <div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="layui-tab-item">模板树</div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="layui-col-md8">
+                <fieldset class="layui-elem-field">
+                    <legend>表单生成</legend>
+                    <div class="layui-field-box">
+                        <form class="layui-form" id="contentForm">
+                            <!-- <div class="layui-row layui-col-space10">
+                                <div class="layui-col-md4">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">单行输入框</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">单行输入框</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">单行输入框</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-row layui-col-space10">
+                                <div class="layui-col-md12">
+                                   
+                                    <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">文本域</label>
+                                            <div class="layui-input-block">
+                                              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                                            </div>
+                                          </div>
+                                </div>
+
+                            </div> -->
+                        </form>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layui-col-md2">
+                <fieldset class="layui-elem-field">
+                    <legend>元素设置</legend>
+                    <div class="layui-field-box">
+                        <form  class="layui-form">
+                                <div class="layui-form-item">
+                                        <label class="layui-form-label">列数</label>
+                                        <div class="layui-input-block">
+                                            <select name="" lay-filter="selectNum" id="selectNum">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                        </form>
+                       
+                        <form class="layui-form" id="setFormData" lay-filter="setFormData">
+                            
+                            <!-- <div class="layui-card">
+                                <div class="layui-card-header">option
+                                    <i class="layui-icon" style="float: right;"></i>
+                                </div>
+                                <div class="layui-card-body layui-row layui-col-space5">
+                                  <div class="layui-col-md5">
+                                    <input type="text" name="title" placeholder="value" autocomplete="off" class="layui-input">
+                                  </div>
+                                  <div class="layui-col-md6">
+                                    <input type="text" name="title" placeholder="text" autocomplete="off" class="layui-input">
+                                  </div>
+                                  <div class="layui-col-md1" style="margin-top: 5px;">
+                                    <i class="layui-icon"></i>
+                                  </div>
+                                </div>
+                              </div> -->
+                        </form>
+                    </div>
+            </div>
+        </div>
+</body>
+
+
+<script type="text/javascript">
+    layui.use(['element', 'form'], function () {
+        var $ = layui.jquery, element = layui.element, form = layui.form;
+        form.render();
+        var oldStr;
+        var newStr;
+        var isMove = false;
+        var formDataSet = {
+            input: {
+                label: "输入框",
+                name: "test",
+                placeholder: "请输入内容",
+                width: "100%"
+            },
+            select: {
+                label: "下拉框",
+                name: "test",
+                width: "100%",
+                option: [{ val: "0", text: "选项一" }, { val: "1", text: "选项二" }]
+            },
+            checkbox: {
+                label: "复选框",
+                name: "test",
+                // width: "100%",
+                option: [{ val: "0", text: "选项一" }, { val: "1", text: "选项二" }]
+            },
+            radio: {
+                label: "单选框",
+                name: "test",
+                option: [{ val: "0", text: "选项一", checked: true }, { val: "1", text: "选项二", checked: false }]
+            },
+            textarea: {
+                label: "文本框",
+                name: "test",
+                placeholder: "请输入内容",
+                width: "100%"
+            }
+        };
+      
+        /* 拖动时触发*/
+        document.addEventListener("dragstart", function (event) {
+            var dataType = $(event.target).attr("data-type");
+            
+            if (dataType == "input") {
+                event.dataTransfer.setData("String", setTemplateForm(formDataSet.input,"input"));
+            } else if (dataType == "select") {
+                event.dataTransfer.setData("String", setTemplateForm(formDataSet.select,"select"));
+            } else if (dataType == "checkbox") {
+                event.dataTransfer.setData("String", setTemplateForm(formDataSet.checkbox,"checkbox"));
+            } else if (dataType == "radio") {
+                event.dataTransfer.setData("String", setTemplateForm(formDataSet.radio,"radio"));
+            } else if (dataType == "textarea") {
+                event.dataTransfer.setData("String", setTemplateForm(formDataSet.textarea,"textarea"));
+            }
+            else if (dataType == "move") {
+                event.dataTransfer.setData("move", event.target.outerHTML);
+                oldStr = event.target;
+                isMove = true;
+            }
+        });
+        document.addEventListener("drag", function (event) {
+            var t = "";
+            var s = $("#selectNum").val();
+            switch (s) {
+                case "1":
+                    t = '<div class="layui-row layui-col-space10"><div class="layui-col-md12"  data-name="dragBox"></div></div>';
+                    break;
+                case "2":
+                    t = '<div class="layui-row layui-col-space10"><div class="layui-col-md6"  data-name="dragBox"></div><div class="layui-col-md6"  data-name="dragBox"></div></div>';
+                    break;
+                case "3":
+                    t = '<div class="layui-row layui-col-space10"><div class="layui-col-md4"  data-name="dragBox"></div><div class="layui-col-md4"  data-name="dragBox"></div><div class="layui-col-md4"  data-name="dragBox"></div></div>';
+                    break;
+            }
+            var isHas = $("#contentForm .layui-row").length;
+            if (isHas > 0) {
+                if ($("#contentForm div[data-name='dragBox']:last").html() === "") {
+                    if ($("#contentForm .layui-row:last").hasClass("notEmpty")) {
+                        $("#contentForm").append(t)
+                    }
+                } else {
+                    $("#contentForm").append(t)
+                }
+            } else {
+                $("#contentForm").append(t)
+            }
+
+        });
+        // 当拖完p元素输出一些文本元素和重置透明度
+        document.addEventListener("dragend", function (event) {
+            // document.getElementById("demo").innerHTML = "完成 p 元素的拖动";
+            // console.log(event);
+            // var t = "";
+            // var s = $("#selectNum").val();
+            // switch (s) {
+            //     case "1":
+            //         t = '<div class="layui-row layui-col-space10"><div class="layui-col-md12"  data-name="dragBox"></div></div>';
+            //         break;
+            //     case "2":
+            //         t = '<div class="layui-row layui-col-space10"><div class="layui-col-md6"  data-name="dragBox"></div><div class="layui-col-md6"  data-name="dragBox"></div></div>';
+            //         break;
+            //     case "3":
+            //         t = '<div class="layui-row layui-col-space10"><div class="layui-col-md4"  data-name="dragBox"></div><div class="layui-col-md4"  data-name="dragBox"></div><div class="layui-col-md4"  data-name="dragBox"></div></div>';
+            //         break;
+            // }
+            // var t = '<div class="layui-row layui-col-space10"><div class="layui-col-md12"  data-name="dragBox"></div></div>';
+
+            // if ($("#contentForm div[data-name='dragBox']:last").html() === "") {
+            //     return;
+            // } else {
+            //      $("#contentForm").append(t);
+            // }
+
+        });
+        /* 拖动完成后触发 */
+        // 当p元素完成拖动进入droptarget,改变div的边框样式
+        document.addEventListener("dragenter", function (event) {
+            // console.log(event);
+            var str = $(event.target).attr("data-name");
+            // if(str == "test1"){
+            //     console.log("11")
+            //     event.target.style.border = "1px solid";
+            // }
+            if (str == "dragBox") {
+                event.target.style.border = "1px solid red";
+            }
+        });
+        // 默认情况下,数据/元素不能在其他元素中被拖放。对于drop我们必须防止元素的默认处理
+        document.addEventListener("dragover", function (event) {
+            event.preventDefault();
+        });
+        // 当可拖放的p元素离开droptarget，重置div的边框样式
+        document.addEventListener("dragleave", function (event) {
+            var str = $(event.target).attr("data-name")
+            if (str == "dragBox") {
+                event.target.style.border = "";
+            }
+        });
+        document.addEventListener("drop", function (event) {
+            event.preventDefault();
+            // console.log(event)
+            var str = $(event.target).attr("data-name");
+            var deletbox = $(event.target).parents(".removeForm").attr("data-name");
+            if (str == "dragBox") {
+                // document.getElementById("demo").style.color = "";
+                event.target.style.border = "";
+                if (isMove) {
+                    var data = event.dataTransfer.getData("move");
+                    console.log(oldStr)
+                    // $(oldStr).remove();
+                    $(oldStr).html($(event.target).html())
+                    event.target.innerHTML = data;
+                    isMove = false;
+                } else {
+                    var data = event.dataTransfer.getData("String");
+                    event.target.innerHTML = data;
+                    $(event.target).parents(".layui-row").addClass("notEmpty");
+                }
+            }
+            if (deletbox == "delet") {
+                $(oldStr).parent().remove();
+            }
+            form.render();
+            form.render("select");
+            bindClick()
+        });
+        function BrowserType() {
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+            var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1 && !isIE; //判断是否IE的Edge浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+            var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器
+            var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
+
+            if (isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                return { name: "IE", num: fIEVersion };
+            }//isIE end
+
+            if (isFF) { return { name: "FF", num: "FF" }; }
+            if (isOpera) { return { name: "Opera", num: "Opera" }; }
+            if (isSafari) { return { name: "Safari", num: "Safari" }; }
+            if (isChrome) { return { name: "Chrome", num: "Chrome" }; }
+            if (isEdge) { return { name: "Edge", num: "Edge" }; }
+        }
+        console.log(BrowserType());
+        function bindClick() {
+            $("#contentForm").find('.layui-form-item').each(function (index) {
+                $(this).click(function () {
+                    $("#contentForm").find('.layui-form-item').removeClass("itemChecked");
+                    $(this).addClass("itemChecked")
+                    var dataSet = $(this).children("label").attr("data-set");
+                    var formObj =JSON.parse($(this).attr("data-formdata"));
+                    console.log(formObj)
+                    // var template = '<div class="layui-form-item"> <label class="layui-form-label">列数</label><div class="layui-input-block">  <select name="" lay-filter="selectNum" id="selectNum">' +
+                    //     ' <option value="1">1</option>  <option value="2">2</option> <option value="3">3</option> </select></div> </div>';
+                    var template="";
+                    var optionTem = '<div class="layui-card">' +
+                        '<div class="layui-card-header">option' +
+                        '<i class="layui-icon" style="float: right;" id="addOptionElemt"></i>' +
+                        '</div>';
+                    $("#setFormData").html("");
+                    
+                    $.each(formObj, function (key, value) {
+                        if (key == "option") {
+                            if (formObj[key].length > 0) {
+                                var s = "";
+                                for (var i = 0; i < formObj[key].length; i++) {
+                                    s += '<div class="layui-card-body layui-row layui-col-space5">' +
+                                        '<div class="layui-col-md5">' +
+                                        '<input type="text" name="" placeholder="value" autocomplete="off" value="' + formObj[key][i].val + '" class="layui-input optionVal">' +
+                                        '</div>' + '<div class="layui-col-md6">' +
+                                        '<input type="text" name="" placeholder="text" value="' + formObj[key][i].text + '" autocomplete="off" class="layui-input optionText">' +
+                                        '</div><div class="layui-col-md1" style="margin-top: 5px;"><i class="layui-icon"></i></div></div>';
+                                }
+                                optionTem = optionTem + s + '</div>';
+                                template += optionTem;
+                            }
+                        } else {
+                            template += '<div class="layui-form-item"><label class="layui-form-label">' + key + '</label><div class="layui-input-block">'
+                                + '<input type="text" name="' + key + '" lay-verify="' + key + '" value="' + formObj[key] + '"  autocomplete="off"  class="layui-input"></div> </div>';
+                        }
+                    })
+                    template += '<div class="layui-form-item" style="text-align:center;"><button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="setFormData">确定</button></div>'
+                    $("#setFormData").append(template);
+                    form.render();
+
+                })
+            })
+            $("#contentForm").find('.layui-form-item>.layui-input-block').each(function (index) {
+                $(this).click(function (event) {
+                    event.stopPropagation();
+                })
+            })
+
+        }
+        form.on('submit(setFormData)', function (data) {
+            var newFormObj = data.field;
+            var optionArray=[];
+            $("#setFormData").find('.layui-card-body').each(function (index) {
+                var optionItem = {};
+               var val = $(this).find(".optionVal").val();
+               var text = $(this).find(".optionText").val();
+               optionItem.val = val;
+               optionItem.text = text;
+               optionArray.push(optionItem);
+            })
+            newFormObj.option = optionArray;
+            var formType = $("#contentForm .itemChecked").children("label").attr("data-set");
+            var setFormTem = setTemplateForm(newFormObj,formType);
+            $("#contentForm .itemChecked").parent().html(setFormTem);
+            
+            bindClick();
+            $("#setFormData").html("");
+            console.log(newFormObj) //当前容器的全部表单字段，名值对形式：{name: value}
+            form.render();
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+
+        $("#setFormData").on("click", ".layui-card-body .layui-icon", function () {
+            $(this).parents(".layui-card-body").remove();
+        })
+        $("#setFormData").on("click", "#addOptionElemt", function () {
+            var optionTem = '<div class="layui-card-body layui-row layui-col-space5">' +
+                '<div class="layui-col-md5">' +
+                '<input type="text" name="title" placeholder="value" autocomplete="off"  class="layui-input">' +
+                '</div>' + '<div class="layui-col-md6">' +
+                '<input type="text" name="title" placeholder="text"  autocomplete="off" class="layui-input">' +
+                '</div><div class="layui-col-md1" style="margin-top: 5px;"><i class="layui-icon"></i></div></div>';
+            $(".layui-card").append(optionTem);
+        })
+        function setTemplateForm(data, type) {
+            var data = data || {};
+            var t = "";
+            switch (type) {
+                case "input":
+                    t = '<div class="layui-form-item" draggable="true" data-type="move" data-formData ='+JSON.stringify(data)+'>' +
+                        ' <label class="layui-form-label" data-set="input">' + data.label + '</label>' +
+                        '<div class="layui-input-block">' +
+                        '<input type="text" name="' + data.name + '"  autocomplete="off" placeholder="' + data.placeholder + '" class="layui-input" style="width:' + data.width + ';">' +
+                        '</div>' +
+                        ' </div>';
+                    break
+                case "select":
+                    var option = '<option value=""></option>';
+                    $.each(data.option, function (index, val) {
+                        option += '<option value="' + data.option[index].val + '">' + data.option[index].text + '</option>';
+                    });
+                    t = '<div class="layui-form-item" draggable="true" data-type="move" data-formData='+JSON.stringify(data)+'>' +
+                        ' <label class="layui-form-label" data-set="select">' + data.label + '</label>' +
+                        '<div class="layui-input-block">' +
+                        ' <select  name="' + data.name + '" style="width:' + data.width + ';">' + option + '</select>' +
+                        '</div>' +
+                        ' </div>';
+                    break
+                case "checkbox":
+                    var checkboxtem = "";
+                    $.each(data.option, function (index, val) {
+                        checkboxtem += '<input type="checkbox" name="' + data.option[index].val + '" lay-skin="primary" title="' + data.option[index].text + '" >';
+                    });
+                    t = '<div class="layui-form-item" draggable="true" data-type="move"  data-formData='+JSON.stringify(data)+'>' +
+                        ' <label class="layui-form-label" data-set="checkbox">' + data.label + '</label>' +
+                        '<div class="layui-input-block">' + checkboxtem + '</div>' + ' </div>';
+                    break
+                case "radio":
+                    var radiotem = "";
+                    $.each(data.option, function (index, val) {
+                        radiotem += '<input type="radio" name="' + data.name + '" value="' + data.option[index].val + '" title="' + data.option[index].text + '">';
+                    });
+                    t = '<div class="layui-form-item" draggable="true" data-type="move" data-formData='+JSON.stringify(data)+'>' +
+                        ' <label class="layui-form-label" data-set="checkbox">' + data.label + '</label>' +
+                        '<div class="layui-input-block">' + radiotem + '</div>' + ' </div>';
+                    break
+                case "textarea":
+                    t = '<div class="layui-form-item layui-form-text" draggable="true" data-type="move" data-formData='+JSON.stringify(data)+'>' +
+                        ' <label class="layui-form-label" data-set="textarea">' + data.label + '</label>' +
+                        '<div class="layui-input-block">' +
+                        '  <textarea placeholder="' + data.placeholder + '" class="layui-textarea"  style="width:' + data.width + ';" ></textarea>' +
+                        '</div>' +
+                        ' </div>'
+                    break
+            }
+
+            return t;
+        }
+    });
+
+</script>
+
+</html>
